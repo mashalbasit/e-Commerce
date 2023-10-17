@@ -1,5 +1,5 @@
 import express from "express"
-import {registerUser, userLogin, getAllUser, getSingleUser, updateSingleUser, deleteSingleUser} from "../Controller/userController.js"
+import {registerUser, userLogin, getAllUser, getSingleUser, updateSingleUser, deleteSingleUser, updatePassword} from "../Controller/userController.js"
 
 const router = express.Router()
 
@@ -9,5 +9,6 @@ router.get("/user", getAllUser)
 router.get("/user/:id", getSingleUser)
 router.put("/user/:id", updateSingleUser)
 router.delete("/user/:id", deleteSingleUser)
+router.post("/user/update-password", updatePassword)
 
 export {router}

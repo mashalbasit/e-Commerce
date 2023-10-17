@@ -12,7 +12,7 @@ const app = express();
 
   mongoose.connect(process.env.DB_URL)
   mongoose.connection.once("connected", () => {
-    console.log ("Database git Connected")
+    console.log ("Database Connected")
   })
 git 
   app.listen(process.env.PORT, () => {

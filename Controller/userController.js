@@ -106,6 +106,7 @@ export const updateSingleUser = async (req, res) => {
         res.status(500).json({message: error.message})
     }
 }
+
 //Delete single user record
 export const deleteSingleUser = async (req, res) => {
     try {
@@ -122,3 +123,26 @@ export const deleteSingleUser = async (req, res) => {
     }
 }
 
+//Reset Password
+export const updatePassword = async(req, res) => {
+    try{
+        const{email, oldPassword, newPassword} = req.body
+        const user = await User.findOne({email})
+        const passwordValid =await bcrypt.compare(oldPassword, user.password)
+
+        if(!user){
+            return res.status(404).json({message: "Invalid User"})
+        }
+
+        if(passwordValid){
+            user.password = await bcrypt.hash(newPassword, 4)
+            await user.save()
+        } else {
+            res.status(404).json({message: "Password does not match"})
+        }
+
+        res.status(200).json({message:"Password Successfully Reset"})
+    } catch (error) {
+        res.status(500).json({message:error.message})
+    }
+}
